@@ -55,7 +55,7 @@ public class Chapter7Fig2GameOfLife
     {        
         // How big our screen is in World Units
         screenSize = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
-        yScreenOffset = 0f;
+        yScreenOffset = 2f;
         columns = 72;
         rows = 41;
         unityBoard = new GameObject[columns, rows];

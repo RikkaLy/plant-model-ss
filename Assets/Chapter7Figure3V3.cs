@@ -7,15 +7,15 @@ using UnityEngine.SceneManagement;
 /// Example 7.3 Game of Life OOP
 /// </summary>
 
-public class Chapter7Figure3 : MonoBehaviour
+public class Chapter7Figure3V3 : MonoBehaviour
 {
     // Each cell is now an object!
-    private Chapter7Figure3GOL gol;
+    private Chapter7Figure3GOLV3 gol;
 
     // Start is called before the first frame update
     void Start()
     {
-        gol = new Chapter7Figure3GOL();
+        gol = new Chapter7Figure3GOLV3();
         SetOrthographicCamera();
         LimitFrameRate();
     }
@@ -43,7 +43,7 @@ public class Chapter7Figure3 : MonoBehaviour
     }
 }
 
-public class Chapter7Figure3Cell
+public class Chapter7Figure3CellV3
 {
     // GameObject properties, to visually represent and draw our cell
     private GameObject cellRep;
@@ -60,7 +60,11 @@ public class Chapter7Figure3Cell
     public int State;
     public int Previous;
 
-    public Chapter7Figure3Cell(int _x, int _y)
+    public List<int> states = new List<int>();
+    float colour;
+    string result;
+
+    public Chapter7Figure3CellV3(int _x, int _y)
     {
         x = _x;
         y = _y;
@@ -72,6 +76,13 @@ public class Chapter7Figure3Cell
 
         State = Random.Range(0, 2);
         Previous = State;
+
+        for(int i = 0; i < 10; i++){
+            states.Add(0);
+        }
+
+        states.Add(State);
+
         CreateGameObject();
     }   
 
@@ -83,26 +94,28 @@ public class Chapter7Figure3Cell
     public void NewState(int newState)
     {
         State = newState;
+        states.Add(newState);
+        states.RemoveAt(0);
+
+        // string result = "List contents: ";
+        // foreach (var item in states)
+        // {
+        //     result += item.ToString() + ", ";
+        // }
+        // Debug.Log(result);
     }
 
     public void Display()
     {
-        if (Previous == 0 && State == 1) // On reproduction
-        {
-            cellMaterial.color = Color.blue;
+        //calculate the colour using the cell's history
+        for (int i = 0; i < states.Count; i++){
+            colour = colour + states[i];
         }
-        else if (State == 1) // On continuing to stay alive
-        {
-            cellMaterial.color = Color.black;
-        }
-        else if (Previous == 1 && State == 0) // On death
-        {
-            cellMaterial.color = Color.red;
-        }
-        else // On continuing to stay dead
-        {
-            cellMaterial.color = Color.white;
-        }
+        colour = colour * 0.2f;
+
+        // the cell becomes a shade of red/black based on it's history, it then stays that way until changed again
+        cellMaterial.color = new Color(colour, 0, 0, 1);
+        colour = 0;
 
         cellRep.transform.position = new Vector3((x * cellRep.transform.localScale.x) - screenSize.x - xScreenOffset, 
                                                  (y * cellRep.transform.localScale.x) - screenSize.y - yScreenOffset);
@@ -121,18 +134,18 @@ public class Chapter7Figure3Cell
     }
 }
 
-public class Chapter7Figure3GOL
+public class Chapter7Figure3GOLV3
 {
     // Initialize rows, columns and set-up array
     private int columns, rows;    
 
-    private Chapter7Figure3Cell[,] board;
+    private Chapter7Figure3CellV3[,] board;
 
-    public Chapter7Figure3GOL()
+    public Chapter7Figure3GOLV3()
     {        
         columns = 72;
         rows = 41;
-        board = new Chapter7Figure3Cell[columns, rows];
+        board = new Chapter7Figure3CellV3[columns, rows];
         Innit();
     }
 
@@ -142,7 +155,7 @@ public class Chapter7Figure3GOL
         {
             for (int j = 0; j < rows; j++)
             {
-                board[i, j] = new Chapter7Figure3Cell(i, j);
+                board[i, j] = new Chapter7Figure3CellV3(i, j);
             }
         }
     }
