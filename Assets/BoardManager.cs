@@ -24,6 +24,12 @@ public class BoardManager : MonoBehaviour {
         foreach (Cell cell in board){
             cell.Display();
         }
+
+        Generate();
+    }
+
+    public void Generate(){
+        
     }
 }
 
