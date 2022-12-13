@@ -12,12 +12,14 @@ public class RootCell : Cell
 
     public void Setup(int _x, int _y, int _z)
     {
-        State = Random.Range(0, 2);
+        State = 0;
         Previous = State;
 
         x = _x;
         y = _y;
         z = _z;
+
+        cellRep = GameObject.Find("root" + x + y + z);
         CreateGameObject();
     }
 

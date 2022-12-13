@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class Cell : MonoBehaviour
 {
     public GameObject cellRep;
-    public GameObject clone;
 
     public float x, y, z;
     public int State, Previous;
@@ -14,6 +13,8 @@ public class Cell : MonoBehaviour
 
         State = Random.Range(0, 2);
         Previous = State;
+
+        cellRep = new GameObject();
 
         x = _x;
         y = _y;
@@ -34,19 +35,17 @@ public class Cell : MonoBehaviour
 
     public void Display(){
         if(State == 0){
-            clone.SetActive(false);
+            cellRep.SetActive(false);
         }else{
-           clone.SetActive(true); 
+           cellRep.SetActive(true); 
         }
     }
 
     public void CreateGameObject()
     {
-        clone = GameObject.Instantiate(cellRep);
-
         // Scale is halved so the entire board is displayed in screen
         //cellRep.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        clone.transform.position = new Vector3(x, y, z);
+        cellRep.transform.position = new Vector3(x, y, z);
     }
 
 }

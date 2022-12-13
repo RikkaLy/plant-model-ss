@@ -11,12 +11,14 @@ public class Organism : Cell
 
     public void Setup(int _x, int _y, int _z)
     {
-        State = Random.Range(0, 2);
+        State = 0;
         Previous = State;
 
         x = _x;
         y = _y;
         z = _z;
+
+        cellRep = GameObject.Find("org" + x + y + z);
         CreateGameObject();
     }
 

@@ -8,7 +8,8 @@ public class Processes : MonoBehaviour
 
     void Start(){
         board = new Board();
-        //Debug.Log(board);
+
+        //make the program run at a readable speed
         LimitFrameRate();
     }
 
@@ -19,6 +20,8 @@ public class Processes : MonoBehaviour
 
     private void LimitFrameRate(){
         QualitySettings.vSyncCount = 0;
+        
+        //framerate
         Application.targetFrameRate = 5;
     }
 }

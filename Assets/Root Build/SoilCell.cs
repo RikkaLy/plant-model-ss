@@ -9,9 +9,7 @@ public class SoilCell : Cell
     private float density;
 
     public SoilCell(int _x, int _y, int _z) : base(_x, _y, _z)
-    {
-        
-    }
+    {}
 
     public void Setup(int _x, int _y, int _z)
     {
@@ -21,6 +19,8 @@ public class SoilCell : Cell
         x = _x;
         y = _y;
         z = _z;
+
+        cellRep = GameObject.Find("soil" + x + y + z);
         CreateGameObject();
     }
 

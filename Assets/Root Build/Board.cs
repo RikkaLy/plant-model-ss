@@ -8,12 +8,17 @@ public class Board
     private SoilCell[,,] soilCube;
     private RootCell[,,] rootBoard;
     private Organism[,,] organismBoard;
+
+    private GameObject soil_folder, root_folder, org_folder;
    
     public Board () 
     {
         columns = 10;
         rows = 10;
         z_rows  = 10;
+        soilCube = new SoilCell[z_rows, columns, rows];
+        rootBoard = new RootCell[z_rows, columns, rows];
+        organismBoard = new Organism[z_rows, columns, rows];
         Innit();
     }
 
@@ -25,14 +30,25 @@ public class Board
             {
                 for (int y = 0; y < rows; y++) 
                 {
-                    GameObject board_pos = new GameObject();
-                    soilCube[z, x, y] = board_pos.AddComponent<SoilCell>();
+                    GameObject board_pos = GameObject.Instantiate(GameObject.Find("SoilPrefab"));
+                    string name = "soil"+ x + y + z;
+                    board_pos.name = name;
+                    board_pos.AddComponent<SoilCell>();
+                    soilCube[z, x, y] = board_pos.GetComponent(typeof(SoilCell)) as SoilCell;
                     soilCube[z, x, y].Setup(x, y, z);
 
-                    rootBoard[z, x, y] = board_pos.AddComponent<RootCell>();
+                    board_pos = GameObject.Instantiate(GameObject.Find("RootPrefab"));
+                    name = "root"+ x + y + z;
+                    board_pos.name = name;
+                    board_pos.AddComponent<RootCell>();
+                    rootBoard[z, x, y] = board_pos.GetComponent(typeof(RootCell)) as RootCell;
                     rootBoard[z, x, y].Setup(x, y, z);
 
-                    organismBoard[z, x, y] = board_pos.AddComponent<Organism>();
+                    board_pos = GameObject.Instantiate(GameObject.Find("OrgPrefab"));
+                    name = "org"+ x + y + z;
+                    board_pos.name = name;
+                    board_pos.AddComponent<Organism>();
+                    organismBoard[z, x, y] = board_pos.GetComponent(typeof(Organism)) as Organism;
                     organismBoard[z, x, y].Setup(x, y, z);
                 }
             }
@@ -46,8 +62,8 @@ public class Board
             {
                 for (int j = 0; j < rows; j++)
                 {
-                    soilCube[h,i,j].Display();
-                    rootBoard[h,i,j].Display();
+                    soilCube[h, i, j].Display();
+                    rootBoard[h, i, j].Display();
                     organismBoard[h,i,j].Display();
                 }
             }
