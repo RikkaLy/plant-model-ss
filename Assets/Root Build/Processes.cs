@@ -6,8 +6,17 @@ public class Processes : MonoBehaviour
 {
     private Board board;
 
+    private GameObject soilRep, rootRep, orgRep;
+
     void Start(){
-        board = new Board();
+        //initialise prefabs
+        soilRep = GameObject.Find("SoilPrefab");
+        rootRep = GameObject.Find("RootPrefab");
+        orgRep = GameObject.Find("OrgPrefab");
+
+        board = new Board(soilRep, rootRep, orgRep);
+
+        //hide prefabs
 
         //make the program run at a readable speed
         LimitFrameRate();

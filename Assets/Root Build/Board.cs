@@ -10,12 +10,24 @@ public class Board
     private SoilCell[,,] soilCube;
     private RootCell[,,] rootBoard;
     private Organism[,,] organismBoard;
+
+    private GameObject soilRep, rootRep, orgRep;
+    private GameObject soilParent, rootParent, orgParent;
    
-    public Board () 
+    public Board (GameObject sRep, GameObject rRep, GameObject oRep) 
     {
         columns = 10;
         rows = 10;
         z_rows  = 10;
+
+        soilRep = sRep;
+        rootRep = rRep;
+        orgRep = oRep;
+
+        //so that new cells can be put into 'folders'
+        soilParent = GameObject.Find("All_Soil_Cells");
+        rootParent = GameObject.Find("All_Root_Cells");
+        orgParent = GameObject.Find("All_Organisms");
 
         soilCube = new SoilCell[z_rows, columns, rows];
         rootBoard = new RootCell[z_rows, columns, rows];
@@ -31,38 +43,39 @@ public class Board
             {
                 for (int y = 0; y < rows; y++) 
                 {
-                    //duplicate the prefab for the cell and give it a name
-                    GameObject board_pos = GameObject.Instantiate(GameObject.Find("SoilPrefab"));
-                    string name = "soil"+ x + y + z;
-                    board_pos.name = name;
-                    //add the functionality script as a component
-                    board_pos.AddComponent<SoilCell>();
-                    //add it to a 'folder' for easy access
-                    board_pos.transform.parent = GameObject.Find("All_Soil_Cells").transform;
-                    //add it to the board to it can be updated
-                    soilCube[z, x, y] = board_pos.GetComponent(typeof(SoilCell)) as SoilCell;
+                    //create a gameobject with the require characterisitics
+                    GameObject new_gameobject = cellInit(soilRep, "soil", typeof(SoilCell), soilParent, x, y, z);
+                    //add it to it's board
+                    soilCube[z, x, y] = new_gameobject.GetComponent(typeof(SoilCell)) as SoilCell;
                     //run the setup function
                     soilCube[z, x, y].Setup(x, y, z);
 
                     //repeat for each cell
-                    board_pos = GameObject.Instantiate(GameObject.Find("RootPrefab"));
-                    name = "root"+ x + y + z;
-                    board_pos.name = name;
-                    board_pos.AddComponent<RootCell>();
-                    board_pos.transform.parent = GameObject.Find("All_Root_Cells").transform;
-                    rootBoard[z, x, y] = board_pos.GetComponent(typeof(RootCell)) as RootCell;
+                    new_gameobject = cellInit(rootRep, "root", typeof(RootCell), rootParent, x, y, z);
+                    rootBoard[z, x, y] = new_gameobject.GetComponent(typeof(RootCell)) as RootCell;
                     rootBoard[z, x, y].Setup(x, y, z);
 
-                    board_pos = GameObject.Instantiate(GameObject.Find("OrgPrefab"));
-                    name = "org"+ x + y + z;
-                    board_pos.name = name;
-                    board_pos.AddComponent<Organism>();
-                    board_pos.transform.parent = GameObject.Find("All_Organisms").transform;
-                    organismBoard[z, x, y] = board_pos.GetComponent(typeof(Organism)) as Organism;
+                    new_gameobject = cellInit(orgRep, "org", typeof(Organism), orgParent, x, y, z);
+                    organismBoard[z, x, y] = new_gameobject.GetComponent(typeof(Organism)) as Organism;
                     organismBoard[z, x, y].Setup(x, y, z);
                 }
             }
         }
+
+        rootBoard[z_rows/2, columns/2, rows-1].newState(1);
+    }
+
+    private GameObject cellInit(GameObject rep, string repName, System.Type type, GameObject parent, int x, int y, int z)
+    {
+        //duplicate the prefab for the cell and give it a name
+        GameObject board_pos = GameObject.Instantiate(rep);
+        string name = repName + x + y + z;
+        board_pos.name = name;
+        //add the functionality script as a component
+        board_pos.AddComponent(type);
+        //add it to a 'folder' for easy access
+        board_pos.transform.parent = parent.transform;
+        return board_pos;
     }
 
     public void Display(){

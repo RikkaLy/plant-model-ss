@@ -7,7 +7,7 @@ public class SoilCell : Cell
     //how much water and nitrate is contained in the soil cell, this will be accessed by root cells and organisms
     private float waterConcen;
     private float nitrate;
-    
+
     //density affects how much water can be held
     private float density;
 
@@ -49,8 +49,8 @@ public class SoilCell : Cell
 
     public void Generate(int neighbours)
     {
-        if ((State == 1) && (neighbours < 10)) NewState(0);    
-        else if ((State == 1) && (neighbours > 12)) NewState(1);          
-        else if ((State == 0) && (neighbours == 12)) NewState(1);         
+        if ((State == 1) && (neighbours < 10)) newState(0);    
+        else if ((State == 1) && (neighbours > 12)) newState(1);          
+        else if ((State == 0) && (neighbours == 12)) newState(1);         
     }
 }

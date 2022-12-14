@@ -30,8 +30,9 @@ public class Cell : MonoBehaviour
         Previous = State;
     }
 
-    public void NewState(int newState)
+    public void newState(int newState)
     {
+        Previous = State;
         State = newState;
     }
 
