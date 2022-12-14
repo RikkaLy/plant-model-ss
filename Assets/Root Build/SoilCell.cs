@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class SoilCell : Cell
 {
+    //how much water and nitrate is contained in the soil cell, this will be accessed by root cells and organisms
     private float waterConcen;
     private float nitrate;
+    
+    //density affects how much water can be held
     private float density;
 
     public SoilCell(int _x, int _y, int _z) : base(_x, _y, _z)

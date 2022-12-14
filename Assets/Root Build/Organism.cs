@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Organism : Cell
 {
+    //energy is supplied by the plant
     private float energy;
 
     public Organism(int _x, int _y, int _z) : base(_x, _y, _z)

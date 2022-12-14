@@ -20,7 +20,6 @@ public class Processes : MonoBehaviour
 
     private void LimitFrameRate(){
         QualitySettings.vSyncCount = 0;
-        
         //framerate
         Application.targetFrameRate = 5;
     }

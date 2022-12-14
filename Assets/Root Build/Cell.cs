@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class Cell : MonoBehaviour
 {
+    //the gameobject that is created to represent the cell
     public GameObject cellRep;
 
     public float x, y, z;
@@ -11,7 +12,8 @@ public class Cell : MonoBehaviour
 
     public Cell(int _x, int _y, int _z){
 
-        State = Random.Range(0, 2);
+        //by default all cells are disabled
+        State = 0;
         Previous = State;
 
         cellRep = new GameObject();
@@ -33,7 +35,8 @@ public class Cell : MonoBehaviour
         State = newState;
     }
 
-    public void Display(){
+    public void Display()
+    {
         if(State == 0){
             cellRep.SetActive(false);
         }else{
@@ -43,8 +46,6 @@ public class Cell : MonoBehaviour
 
     public void CreateGameObject()
     {
-        // Scale is halved so the entire board is displayed in screen
-        //cellRep.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         cellRep.transform.position = new Vector3(x, y, z);
     }
 

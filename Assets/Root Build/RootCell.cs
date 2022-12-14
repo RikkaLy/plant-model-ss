@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RootCell : Cell
 {
+    //how much water and nitrate the root cell is holding, it will pass these up to the plant
     private float waterConcen;
     private float nitrate;
 
