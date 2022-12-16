@@ -13,9 +13,6 @@ public class Cell : MonoBehaviour
     public Cell(int _x, int _y, int _z){
 
         //by default all cells are disabled
-        State = 0;
-        Previous = State;
-
         cellRep = new GameObject();
 
         x = _x;
@@ -36,14 +33,7 @@ public class Cell : MonoBehaviour
         State = newState;
     }
 
-    public void Display()
-    {
-        if(State == 0){
-            cellRep.SetActive(false);
-        }else{
-           cellRep.SetActive(true); 
-        }
-    }
+    public virtual void Generate(int neighbours){}
 
     public void CreateGameObject()
     {

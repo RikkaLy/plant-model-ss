@@ -12,19 +12,23 @@ public class Organism : Cell
 
     public void Setup(int _x, int _y, int _z)
     {
-        State = 0;
-        Previous = State;
-
         x = _x;
         y = _y;
         z = _z;
 
-        cellRep = GameObject.Find("org" + x + y + z);
+        cellRep = GameObject.Find("org" + "x" + x + "y" + y + "z" + z);
         CreateGameObject();
     }
 
-    private void nutrientFixation(){}
+    private void nutrientFixation()
+    {
+        //this function is passed the name of a variable (water, nitrate)
+        //it then collects that variable from the soil and passes it to the nearest root
+    }
 
-    public void Generate(int neighbours){}
+    public override void Generate(int neighbours)
+    {
+
+    }
 }
 

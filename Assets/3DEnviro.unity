@@ -424,6 +424,7 @@ GameObject:
   - component: {fileID: 1104033024}
   - component: {fileID: 1104033023}
   - component: {fileID: 1104033022}
+  - component: {fileID: 1104033026}
   m_Layer: 0
   m_Name: SoilPrefab
   m_TagString: Untagged
@@ -509,6 +510,24 @@ Transform:
   m_Father: {fileID: 1793661535}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1104033026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104033021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b06d9ba054605f841b0d4f1f01b41f25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellRep: {fileID: 0}
+  x: 0
+  y: 0
+  z: 0
+  State: 0
+  Previous: 0
 --- !u!1 &1155639063
 GameObject:
   m_ObjectHideFlags: 0

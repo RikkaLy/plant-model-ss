@@ -24,7 +24,6 @@ public class Processes : MonoBehaviour
 
     void Update(){
         board.Generate();
-        board.Display();
     }
 
     private void LimitFrameRate(){

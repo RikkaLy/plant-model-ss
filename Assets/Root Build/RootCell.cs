@@ -13,14 +13,11 @@ public class RootCell : Cell
 
     public void Setup(int _x, int _y, int _z)
     {
-        State = 0;
-        Previous = State;
-
         x = _x;
         y = _y;
         z = _z;
 
-        cellRep = GameObject.Find("root" + x + y + z);
+        cellRep = GameObject.Find("root" + "x" + x + "y" + y + "z" + z);
         CreateGameObject();
     }
 
@@ -40,9 +37,20 @@ public class RootCell : Cell
         nitrate += _nitrate;
     }
 
-    public void checkConditions(){
-        
+    public void Osmosis()
+    {
+        //get water from the soil and from fungi
+        //give fungi sugars in exchange
     }
 
-    public void Generate(int neighbours){}
+    public void Nitrification()
+    {
+        //get nitrate from the soil, fungi, and bacteria
+        //give sugars and carbon in exchange
+    }
+
+    public override void Generate(int neighbours)
+    {
+
+    }
 }

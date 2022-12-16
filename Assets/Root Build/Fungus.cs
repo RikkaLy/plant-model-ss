@@ -8,9 +8,6 @@ public class Fungus : Organism
 
     public Fungus(int _x, int _y, int _z) : base(_x, _y, _z)
     {
-        State = Random.Range(0, 2);
-        Previous = State;
-
         x = _x;
         y = _y;
         z = _z;
@@ -18,6 +15,14 @@ public class Fungus : Organism
 
     }
 
-    private void checkConditions(){}
-    private void Generate(){}
+    private void checkConditions()
+    {
+        //check to see whether the plant needs water or nitrate
+        //if yes, perform nutrient fixation
+    }
+
+    public override void Generate(int neighbours)
+    {
+        //decide where to grow based on soil quality
+    }
 }

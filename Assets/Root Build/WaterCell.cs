@@ -8,9 +8,6 @@ public class WaterCell : Cell
 
     public WaterCell(int _x, int _y, int _z) : base(_x, _y, _z)
     {
-        State = Random.Range(0, 2);
-        Previous = State;
-
         x = _x;
         y = _y;
         z = _z;
@@ -18,5 +15,9 @@ public class WaterCell : Cell
 
     }
 
-    private void soilSaturation(){}
+    private void soilSaturation()
+    {
+        //add water to the surrounding soil
+    }
+
 }

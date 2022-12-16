@@ -8,22 +8,16 @@ public class SoilCell : Cell
     private float waterConcen;
     private float nitrate;
 
-    //density affects how much water can be held
-    private float density;
-
     public SoilCell(int _x, int _y, int _z) : base(_x, _y, _z)
     {}
 
     public void Setup(int _x, int _y, int _z)
     {
-        State = Random.Range(0, 2);
-        Previous = State;
-
         x = _x;
         y = _y;
         z = _z;
 
-        cellRep = GameObject.Find("soil" + x + y + z);
+        cellRep = GameObject.Find("soil" + "x" + x + "y" + y + "z" + z);
         CreateGameObject();
     }
 
@@ -43,14 +37,8 @@ public class SoilCell : Cell
         nitrate += _nitrate;
     }
 
-    public void setDensity(float new_density){
-        density += new_density;
-    }
-
-    public void Generate(int neighbours)
+    public override void Generate(int neighbours)
     {
-        if ((State == 1) && (neighbours < 10)) newState(0);    
-        else if ((State == 1) && (neighbours > 12)) newState(1);          
-        else if ((State == 0) && (neighbours == 12)) newState(1);         
+        
     }
 }
