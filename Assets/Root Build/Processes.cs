@@ -10,11 +10,10 @@ public class Processes : MonoBehaviour
 
     void Start(){
         //initialise prefabs
-        soilRep = GameObject.Find("SoilPrefab");
         rootRep = GameObject.Find("RootPrefab");
         orgRep = GameObject.Find("OrgPrefab");
 
-        board = new Board(soilRep, rootRep, orgRep);
+        board = new Board(rootRep, orgRep);
 
         //hide prefabs
 
@@ -27,8 +26,8 @@ public class Processes : MonoBehaviour
     }
 
     private void LimitFrameRate(){
-        QualitySettings.vSyncCount = 0;
+        QualitySettings.vSyncCount = 4;
         //framerate
-        Application.targetFrameRate = 5;
+        //Application.targetFrameRate = 5;
     }
 }

@@ -4,40 +4,47 @@ using System.Collections.Generic;
 
 public class Cell : MonoBehaviour
 {
-    //the gameobject that is created to represent the cell
-    public GameObject cellRep;
+    //how much water and nitrate the root cell is holding, it will pass these up to the plant
+    public float waterConcen;
+    public float nitrate;
 
     public float x, y, z;
-    public int State, Previous;
 
-    public Cell(int _x, int _y, int _z){
+    public Cell(float _x, float _y, float _z){
 
-        //by default all cells are disabled
-        cellRep = new GameObject();
+        Setup(_x, _y, _z);
 
+    }
+
+    public void Setup(float _x, float _y, float _z)
+    {
         x = _x;
         y = _y;
         z = _z;
-        CreateGameObject();
-
     }
 
-    public void SavePrevious()
+
+    public virtual float getWater(float removed_water = 0)
     {
-        Previous = State;
+        return waterConcen;
     }
 
-    public void newState(int newState)
+    public virtual float getNitrate(float removed_nitrate = 0)
     {
-        Previous = State;
-        State = newState;
+        return nitrate;
     }
 
-    public virtual void Generate(int neighbours){}
-
-    public void CreateGameObject()
+    public void addWater(float water)
     {
-        cellRep.transform.position = new Vector3(x, y, z);
+        waterConcen += water;
     }
+
+    public void addNitrate(float _nitrate)
+    {
+        nitrate += _nitrate;
+    }
+
+    public virtual void Generate(){}
+
 
 }

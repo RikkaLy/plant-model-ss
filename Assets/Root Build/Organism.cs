@@ -10,15 +10,6 @@ public class Organism : Cell
     public Organism(int _x, int _y, int _z) : base(_x, _y, _z)
     {}
 
-    public void Setup(int _x, int _y, int _z)
-    {
-        x = _x;
-        y = _y;
-        z = _z;
-
-        cellRep = GameObject.Find("org" + "x" + x + "y" + y + "z" + z);
-        CreateGameObject();
-    }
 
     private void nutrientFixation()
     {
@@ -26,7 +17,7 @@ public class Organism : Cell
         //it then collects that variable from the soil and passes it to the nearest root
     }
 
-    public override void Generate(int neighbours)
+    public override void Generate()
     {
 
     }

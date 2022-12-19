@@ -11,7 +11,6 @@ public class WaterCell : Cell
         x = _x;
         y = _y;
         z = _z;
-        CreateGameObject();
 
     }
 

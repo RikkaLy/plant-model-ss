@@ -4,40 +4,29 @@ using UnityEngine;
 
 public class SoilCell : Cell
 {
-    //how much water and nitrate is contained in the soil cell, this will be accessed by root cells and organisms
-    private float waterConcen;
-    private float nitrate;
-
     public SoilCell(int _x, int _y, int _z) : base(_x, _y, _z)
     {}
 
-    public void Setup(int _x, int _y, int _z)
-    {
-        x = _x;
-        y = _y;
-        z = _z;
-
-        cellRep = GameObject.Find("soil" + "x" + x + "y" + y + "z" + z);
-        CreateGameObject();
+    public override float getWater(float removed_water){
+        if (waterConcen - removed_water >= 0) 
+        {
+            waterConcen = waterConcen - removed_water;
+            return removed_water;
+        }
+        return 0f;
     }
 
-    public float getWater(){
-        return waterConcen;
+    public override float getNitrate(float removed_nitrate){
+        if (nitrate - removed_nitrate >= 0)
+        {
+            nitrate = nitrate - removed_nitrate;
+            return removed_nitrate;
+        }
+        return 0f;
     }
 
-    public float getNitrate(){
-        return nitrate;
-    }
 
-    public void addWater(float water){
-        waterConcen += water;
-    }
-
-    public void addNitrate(float _nitrate){
-        nitrate += _nitrate;
-    }
-
-    public override void Generate(int neighbours)
+    public override void Generate()
     {
         
     }
