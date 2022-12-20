@@ -28,6 +28,6 @@ public class Processes : MonoBehaviour
 
     private void LimitFrameRate(){
         this.fixedDeltaTime = Time.fixedDeltaTime;
-        Time.fixedDeltaTime = this.fixedDeltaTime * 0.1f;
+        Time.fixedDeltaTime = this.fixedDeltaTime * 0.05f;
     }
 }

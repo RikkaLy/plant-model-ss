@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class RootBoundries : MonoBehaviour
 {
+    public bool triggered = false;
     void OnTriggerStay(Collider other)
     {
-        //if there is a collision, let it be known that there was an attempt to grow
-        transform.parent.GetComponent<RootCell>().addGrowAttempt();
-        Destroy(GetComponent<Collider>().gameObject);
+        if (other.gameObject.GetComponent<RootCell>() != null) 
+        {
+            triggered = true;
+        }
+        
     }
 }
