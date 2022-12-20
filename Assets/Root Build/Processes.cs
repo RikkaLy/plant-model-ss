@@ -7,6 +7,7 @@ public class Processes : MonoBehaviour
     private Board board;
 
     private GameObject soilRep, rootRep, orgRep;
+    private float fixedDeltaTime;
 
     void Start(){
         //initialise prefabs
@@ -26,8 +27,7 @@ public class Processes : MonoBehaviour
     }
 
     private void LimitFrameRate(){
-        QualitySettings.vSyncCount = 4;
-        //framerate
-        //Application.targetFrameRate = 5;
+        this.fixedDeltaTime = Time.fixedDeltaTime;
+        Time.fixedDeltaTime = this.fixedDeltaTime * 0.1f;
     }
 }

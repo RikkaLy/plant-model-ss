@@ -12,6 +12,9 @@ public class RootCell : Cell
     public PlantCell plantCell;
     public GameObject rootParent;
 
+    private bool max_children = false;
+    public int grow_attempts = 0;
+
     public Board board;
 
     public RootCell(float _x, float _y, float _z) : base(_x, _y, _z)
@@ -21,6 +24,7 @@ public class RootCell : Cell
 
     public void newPrevious(GameObject new_cell) 
     {
+        //change the 'parent' cell carried over from cloning
         previous = new_cell;
         next = new List<GameObject>();
     }
@@ -30,8 +34,11 @@ public class RootCell : Cell
         //get water and nitrate from the soil
         waterConcen = waterConcen + soil.getWater(0.1f);
         nitrate = nitrate + soil.getNitrate(0.1f);
-        //Debug.Log("root water: " + waterConcen + " soil water: " + soil.waterConcen);
-        //Debug.Log("root nitrate: " + nitrate + " soil nitrate: " + soil.nitrate);
+    }
+
+    public void addGrowAttempt()
+    {
+        grow_attempts += 1;
     }
 
     public void nutrientTransfer()
@@ -50,8 +57,8 @@ public class RootCell : Cell
         float new_z = z;
 
         nutrientTransfer();
-        if (plantCell.getWater() < -20 && plantCell.getNitrate() < -20) {
-            //50% chance that a root will grow
+        if (plantCell.getWater() < -20 && plantCell.getNitrate() < -20 && max_children == false) {
+            //30% chance that a root will grow
             if (Random.Range(0.0f, 1.0f) < 0.3f) 
             {
                 //30% chance that the root will grow unaligned
@@ -65,18 +72,32 @@ public class RootCell : Cell
                 {
                     //clone this cell
                     GameObject new_root = GameObject.Instantiate(gameObject);
+                    GameObject rootBounds = transform.GetChild(0).gameObject;
                     
+                    //perform setup of x,y,z
                     new_root.GetComponent<RootCell>().Setup(new_x, new_y, new_z);
+                    //change the position
                     new_root.transform.parent = rootParent.transform;
                     new_root.transform.position = new Vector3(new_x, new_y, new_z);
+                    
+                    //activate the collider. if the new root is too close to another root it'll be destroyed
+                    rootBounds.SetActive(true);
+                    if(new_root != null)
+                    {
+                        rootBounds.SetActive(false);
+                        string name = "root" + "x" + new_x + "y" + new_y + "z" + new_z;
+                        new_root.name = name;
 
-                    string name = "root" + "x" + new_x + "y" + new_y + "z" + new_z;
-                    new_root.name = name;
+                        //set new root's 'previous root' as this cell
+                        new_root.GetComponent<RootCell>().newPrevious(gameObject);
+                        //add to list of 'next roots'
+                        next.Add(new_root);
+                    }
+                }
 
-                    //set new root's 'previous root' as this cell
-                    new_root.GetComponent<RootCell>().newPrevious(gameObject);
-                    //add to list of 'next roots'
-                    next.Add(new_root);
+                //if this cell has 2 children stop it from generating more
+                if(next.Count == 2 || grow_attempts > 3){
+                    max_children = true;
                 }
 
                 
